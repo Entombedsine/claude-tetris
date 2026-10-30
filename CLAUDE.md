@@ -12,7 +12,7 @@ There is no `package.json`, build step, linter, or test suite. To run it, open `
 
 Three files, loaded with a plain `<script src="game.js">` (no modules):
 
-- `index.html` — fixed DOM that `game.js` looks up by id at load time: `board` (300×600 canvas), `next-canvas` (120×120), `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`. Renaming any id breaks the script at startup.
+- `index.html` — fixed DOM that `game.js` looks up by id at load time: `board` (300×600 canvas), `next-canvas` (120×120), `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`, `theme-toggle`. Renaming any id breaks the script at startup.
 - `style.css` — dark/retro styling and the `.hidden` class used by the overlay.
 - `game.js` — all logic, in strict mode, with module-level mutable state (`board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId`) reset by `init()`. The restart button calls `init()` again, and `init()` is also called once at the end of the file.
 
