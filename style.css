@@ -285,9 +285,8 @@ kbd {
   outline-offset: 2px;
 }
 
-/* El skin Neon fuerza fondo negro en ambos temas */
-[data-skin="neon"] {
-  --canvas-bg: #000000;
-  --grid: #14141f;
-  --block-highlight: rgba(255, 255, 255, 0);
+/* El skin Neon fuerza fondo negro en ambos temas (solo canvas) */
+[data-skin="neon"] #board,
+[data-skin="neon"] #next-canvas {
+  background: #000000;
 }

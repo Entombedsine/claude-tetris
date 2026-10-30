@@ -96,9 +96,10 @@ const SKINS = {
       context.shadowColor = color;
       context.shadowBlur = 12;
       context.fillStyle = color;
+      context.save();
       context.globalAlpha *= 0.35;
       context.fillRect(px + 3, py + 3, size - 6, size - 6);
-      context.globalAlpha /= 0.35;
+      context.restore();
       context.strokeStyle = color;
       context.lineWidth = 2;
       context.strokeRect(px + 3, py + 3, size - 6, size - 6);
@@ -109,6 +110,9 @@ const SKINS = {
       context.fillStyle = color;
       roundedRectPath(context, px + 1.5, py + 1.5, size - 3, size - 3, size * 0.28);
       context.fill();
+      context.strokeStyle = 'rgba(120, 100, 130, 0.45)';
+      context.lineWidth = 1;
+      context.stroke();
       context.fillStyle = 'rgba(255, 255, 255, 0.45)';
       roundedRectPath(context, px + 5, py + 4, size - 10, 4, 2);
       context.fill();
