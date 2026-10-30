@@ -256,3 +256,38 @@ kbd {
 #restart-btn:hover {
   background: var(--accent-hover);
 }
+
+/* ---- Selector de skin ---- */
+#skin-picker {
+  position: fixed;
+  top: 16px;
+  right: 130px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--label);
+}
+
+#skin-select {
+  background: var(--canvas-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#skin-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* El skin Neon fuerza fondo negro en ambos temas */
+[data-skin="neon"] {
+  --canvas-bg: #000000;
+  --grid: #14141f;
+  --block-highlight: rgba(255, 255, 255, 0);
+}
