@@ -40,6 +40,27 @@ const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
 
+const themeToggle = document.getElementById('theme-toggle');
+const THEME_KEY = 'tetris-theme';
+const themeColors = { grid: '', highlight: '' };
+
+function readThemeColors() {
+  const style = getComputedStyle(document.documentElement);
+  themeColors.grid = style.getPropertyValue('--grid').trim();
+  themeColors.highlight = style.getPropertyValue('--block-highlight').trim();
+}
+
+function applyTheme(theme) {
+  const isLight = theme === 'light';
+  if (isLight) document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  themeToggle.setAttribute('aria-pressed', String(isLight));
+  themeToggle.setAttribute('aria-label', isLight ? 'Modo oscuro' : 'Modo claro');
+  readThemeColors();
+  // el loop está detenido en pausa/game over: redibujar a mano
+  if (current && next) { draw(); drawNext(); }
+}
+
 let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
 
 function createBoard() {
@@ -163,13 +184,13 @@ function drawBlock(context, x, y, colorIndex, size, alpha) {
   context.fillStyle = color;
   context.fillRect(x * size + 1, y * size + 1, size - 2, size - 2);
   // highlight
-  context.fillStyle = 'rgba(255,255,255,0.12)';
+  context.fillStyle = themeColors.highlight;
   context.fillRect(x * size + 1, y * size + 1, size - 2, 4);
   context.globalAlpha = 1;
 }
 
 function drawGrid() {
-  ctx.strokeStyle = '#22222e';
+  ctx.strokeStyle = themeColors.grid;
   ctx.lineWidth = 0.5;
   for (let c = 1; c < COLS; c++) {
     ctx.beginPath();
@@ -300,5 +321,16 @@ document.addEventListener('keydown', e => {
 });
 
 restartBtn.addEventListener('click', init);
+
+themeToggle.addEventListener('click', () => {
+  const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(theme);
+  try { localStorage.setItem(THEME_KEY, theme); } catch (_) { /* almacenamiento no disponible */ }
+  themeToggle.blur(); // evita que Space/flechas reactiven el botón
+});
+
+let savedTheme = 'dark';
+try { savedTheme = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark'; } catch (_) {}
+applyTheme(savedTheme);
 
 init();
