@@ -18,7 +18,7 @@ Three files, loaded with a plain `<script src="game.js">` (no modules):
 
 Key design points in `game.js`:
 
-- Board is a `ROWS × COLS` matrix of `0` or a color index 1–7. The same index selects the entry in both `PIECES` and `COLORS` (index 0 is `null` in both), so adding or reordering a piece means editing both arrays together.
+- Board is a `ROWS × COLS` matrix of `0` or a color index 1–8. The same index selects the entry in both `PIECES` and `COLORS` (index 0 is `null` in both), so adding or reordering a piece means editing both arrays together.
 - Pieces are square matrices rotated by `rotateCW` (transpose + reverse rows); `tryRotate` applies wall kicks by trying ±1 and ±2 column offsets.
 - `loop(ts)` is a `requestAnimationFrame` loop that accumulates elapsed time into `dropAccum` and drops one row once it passes `dropInterval`. Fall speed is `max(100, 1000 − (level − 1) × 90)` ms; level rises every 10 lines.
 - Scoring uses `LINE_SCORES` × level, plus 2 points per cell for hard drop and 1 per row for soft drop.
